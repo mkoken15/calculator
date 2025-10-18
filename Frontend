@@ -1,9 +1,0 @@
-music-mp3-app/
-├── frontend/
-│   └── index.html  (ton code HTML/CSS/JS précédent)
-├── backend/
-│   ├── server.js
-│   ├── package.json
-│   └── downloads/  (dossier pour stocker temporairement les fichiers, .gitignore-le si besoin)
-├── README.md
-└── .gitignore
