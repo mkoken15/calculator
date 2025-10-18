@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum-Converter V6 - Vues Séparées & Monétisation</title>
+    <title>Quantum-Converter V7 - Horloge en Direct</title>
 
     <style>
+        /* =================================================== */
+        /* == 0. STYLE DE L'HORLOGE EN DIRECT (CSS)           == */
+        /* =================================================== */
+        .live-clock {
+            font-family: 'Orbitron', monospace; 
+            font-size: 1.5em; 
+            color: var(--color-secondary);
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 5px 0;
+            border-bottom: 1px dashed rgba(255, 0, 255, 0.3);
+            text-shadow: 0 0 10px var(--color-secondary);
+        }
+        
         /* =================================================== */
         /* == 1. STYLES GLOBALES & FOND QUANTIQUE (CSS)       == */
         /* =================================================== */
@@ -110,7 +124,6 @@
             text-shadow: 0 0 5px var(--color-primary);
         }
         
-        /* Styles pour les icônes (Règle et Calculatrice) */
         .ruler-icon {
             font-size: 1.5em; 
             margin-right: 5px;
@@ -335,6 +348,9 @@
 </head>
 <body>
     <div class="converter-container">
+        
+        <div id="liveClock" class="live-clock">--:--:--</div>
+        
         <h1>QUANTUM-CONVERTER 💻</h1>
         <p class="subtitle">Matrice de conversion unifiée et calcul évaluatif</p>
 
@@ -628,11 +644,9 @@
                 .replace(/×/g, '*')
                 .replace(/÷/g, '/');
             
-            // Remplacement de 5% par (5/100)
             cleanExpression = cleanExpression.replace(/(\d+(\.\d+)?)%/g, '($1/100)');
 
             try {
-                // Utilisation de new Function pour l'évaluation dynamique
                 const result = new Function('return ' + cleanExpression)();
                 if (!isFinite(result)) return 'Erreur';
                 return parseFloat(result.toFixed(10));
@@ -771,13 +785,12 @@
                     inputValue.value = result; 
                     
                     if (result !== 0) {
-                        // Enregistrement dans l'historique AVANT de changer de vue
                         const fromUnit = fromUnitSelect.value;
                         const toUnit = toUnitSelect.value;
                         const category = categorySelect.value;
                         updateHistory(result, fromUnit, resultValue.textContent, toUnit, category);
 
-                        showView('converter'); // Changement de vue automatique
+                        showView('converter'); 
                         return; 
                     }
                 }
@@ -822,6 +835,17 @@
             }
         });
 
+        // --- 5. Logique de l'Horloge en Temps Réel ---
+
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            document.getElementById('liveClock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
 
         // Événements du convertisseur
         categorySelect.addEventListener('change', updateUnitSelects);
@@ -838,6 +862,10 @@
              renderHistory();
              updateUnitSelects();
              showView('calculator'); // Afficher la calculatrice par défaut
+             
+             // Démarrer l'horloge
+             updateClock(); // Appeler une première fois immédiatement
+             setInterval(updateClock, 1000); // Mettre à jour toutes les 1000 millisecondes (1 seconde)
         });
     </script>
 </body>
