@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum-Converter V7 - Horloge en Direct</title>
-
+    <title>Quantum-Converter V8 - Horloge & Adsense</title>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5825303311354202"
+         crossorigin="anonymous"></script>
+    
     <style>
         /* =================================================== */
         /* == 0. STYLE DE L'HORLOGE EN DIRECT (CSS)           == */
@@ -355,8 +358,16 @@
         <p class="subtitle">Matrice de conversion unifiée et calcul évaluatif</p>
 
         <div class="ad-container top-ad">
-            <p>⭐ Bannière Publicitaire - 320x50/320x100 (Espace Publicitaire)</p>
-            </div>
+            <ins class="adsbygoogle"
+                 style="display:block; text-align:center;"
+                 data-ad-client="ca-pub-5825303311354202"
+                 data-ad-slot="VOTRE_ID_DE_BLOC_PUB_TOP_ICI" 
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
         
         <div class="tab-bar">
             <button class="tab-button active" onclick="showView('calculator')">
@@ -456,8 +467,14 @@
                 </div>
                 
                 <div class="ad-container bottom-ad">
-                    <p>Annonce Bloc - 300x250 (Espace Publicitaire)</p>
-                    </div>
+                    <ins class="adsbygoogle"
+                         style="display:inline-block; width:300px; height:250px"
+                         data-ad-client="ca-pub-5825303311354202"
+                         data-ad-slot="VOTRE_ID_DE_BLOC_PUB_BOTTOM_ICI"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
 
                 <div class="history-container">
                     <h3>Historique des Conversions Récents (5)</h3>
@@ -595,7 +612,6 @@
                 converterView.classList.remove('hidden');
                 tabButtons[1].classList.add('active'); 
                 
-                // Mettre à jour la valeur affichée pour la conversion
                 const currentValue = parseFloat(inputValue.value);
                 const formattedValue = (isNaN(currentValue) || inputValue.value === 'Erreur') ? '0' : 
                     ((Math.abs(currentValue) > 1e6 || Math.abs(currentValue) < 1e-6)
